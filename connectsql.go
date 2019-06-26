@@ -8,9 +8,10 @@ import (
 )
 
 type Blog struct {
-	Title string `json:"Title"`
-	Body  string `json:"Body"`
-	Come  string `json:"Come"`
+	Title   string `json:"Title"`
+	Body    string `json:"Body"`
+	Come    string `json:"Come"`
+	Sakusya string `json:"Sakusya"`
 }
 
 type Blogs []Blog
@@ -21,15 +22,21 @@ func main() {
 		log.Print(err)
 	}
 	defer db.Close()
+	//テーブル作る
 	db.AutoMigrate(Blog{})
-	// var testpost = Blog{
-	// 	Title: "今日は晴れの日",
-	// 	Body:  "晴れてたよ",
-	// 	Come:  "そーなんだ",
-	// }
+
+	var testpost = Blog{
+		Title:   "今日は晴れの日3",
+		Body:    "晴れてたよ2",
+		Come:    "そーなんだ１",
+		Sakusya: "sasasa",
+	}
+	//これで書き込みできる
+	db.Save(&testpost)
+
+	//この2行要調査
 	// db.NewRecord(testpost)
 	// db.Create(&testpost)
-	// db.Save(&testpost)
 
 	// var Blogs = Blog{}
 	// db.Find(&Blogs)
