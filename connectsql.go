@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"log"
 
 	"github.com/jinzhu/gorm"
@@ -23,17 +22,17 @@ func main() {
 	}
 	defer db.Close()
 	db.AutoMigrate(Blog{})
-	var testpost = Blog{
-		Title: "今日は晴れの日",
-		Body:  "晴れてたよ",
-		Come:  "そーなんだ",
-	}
-	db.NewRecord(testpost)
-	db.Create(&testpost)
-	db.Save(&testpost)
+	// var testpost = Blog{
+	// 	Title: "今日は晴れの日",
+	// 	Body:  "晴れてたよ",
+	// 	Come:  "そーなんだ",
+	// }
+	// db.NewRecord(testpost)
+	// db.Create(&testpost)
+	// db.Save(&testpost)
 
-	var Blogs = Blog{}
-	db.Find(&Blogs)
-	fmt.Println(Blogs)
+	// var Blogs = Blog{}
+	// db.Find(&Blogs)
+	// fmt.Println(Blogs)
 
 }
