@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 
 	"github.com/jinzhu/gorm"
@@ -25,21 +26,26 @@ func main() {
 	//テーブル作る
 	db.AutoMigrate(Blog{})
 
-	var testpost = Blog{
-		Title:   "今日は晴れの日3",
-		Body:    "晴れてたよ2",
-		Come:    "そーなんだ１",
-		Sakusya: "sasasa",
-	}
+	// var testpost = Blog{
+	// 	Title:   "今日は晴れの日3",
+	// 	Body:    "晴れてたよ2",
+	// 	Come:    "そーなんだ１",
+	// 	Sakusya: "sasasa",
+	// }
 	//これで書き込みできる
-	db.Save(&testpost)
+	// db.Save(&testpost)
 
-	//この2行要調査
-	// db.NewRecord(testpost)
-	// db.Create(&testpost)
+	var kakikomi = Blog{
+		Title:   "qqqqsasasa",
+		Body:    "sa",
+		Come:    "swq",
+		Sakusya: "qw",
+	}
+	//2行で書けばこっちでも書き込みできる。primary　keyがどうとか
+	db.Create(kakikomi)
+	db.NewRecord(kakikomi)
 
-	// var Blogs = Blog{}
-	// db.Find(&Blogs)
-	// fmt.Println(Blogs)
-
+	blogentry := []Blog{}
+	db.Find(&blogentry)
+	fmt.Println(blogentry)
 }
