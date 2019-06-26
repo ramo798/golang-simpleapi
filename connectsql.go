@@ -45,6 +45,7 @@ func main() {
 	db.Create(kakikomi)
 	db.NewRecord(kakikomi)
 
+	//読み込みインスタンス作ってからそこにfind()とかで入れる
 	blogentry := []Blog{}
 	db.Find(&blogentry)
 	fmt.Println(blogentry)
