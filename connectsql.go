@@ -43,7 +43,13 @@ func main() {
 	}
 	//2行で書けばこっちでも書き込みできる。primary　keyがどうとか
 	db.Create(kakikomi)
-	db.NewRecord(kakikomi)
+	//インスタンスを作ってcreate()で書き込み
+	kakikomimi := Blog{}
+	kakikomimi.Title = "タイトル"
+	kakikomimi.Body = "a"
+	kakikomimi.Come = "aaa"
+	kakikomimi.Sakusya = "sasasa"
+	db.Create(kakikomimi)
 
 	//読み込みインスタンス作ってからそこにfind()とかで入れる
 	blogentry := []Blog{}
