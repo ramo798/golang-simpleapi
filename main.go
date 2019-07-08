@@ -1,21 +1,28 @@
 package main
 
 import (
-	"github.com/ramo798/golang-simpleapi/sql"
+	"log"
+
+	"github.com/jinzhu/gorm"
+	_ "github.com/lib/pq"
 )
 
+type Blog struct {
+	Title   string `json:"Title"`
+	Body    string `json:"Body"`
+	Come    string `json:"Come"`
+	Sakusya string `json:"Sakusya"`
+}
+
+type Blogs []Blog
+
 func main() {
-	// api := rest.NewApi()
-	// api.Use(rest.DefaultDevStack...)
-
-	// router, err := rest.MakeRouter(
-	// // rest.Get("/test", Gettest),
-	// )
-	// if err != nil {
-	// 	log.Fatal(err)
-	// }
-
-	// api.SetApp(router)
-	// log.Fatal(http.ListenAndServe(":3000", api.MakeHandler()))
-	sql.TestInit()
+	//dbにアクセス
+	db, err := gorm.Open("postgres", "user=root password=root dbname=DB79 sslmode=disable")
+	if err != nil {
+		log.Print(err)
+	}
+	defer db.Close()
+	//テーブル作る
+	db.AutoMigrate(Blog{})
 }
