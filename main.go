@@ -14,14 +14,9 @@ type Blog struct {
 	Sakusya string `json:"Sakusya"`
 }
 
-type Blogs []Blog
+// type Blogs []Blog
 
 func main() {
-	Initdb()
-}
-
-//Initdb is テーブル作成
-func Initdb() {
 	//dbにアクセス
 	db, err := gorm.Open("postgres", "user=root password=root dbname=DB79 sslmode=disable")
 	if err != nil {
@@ -30,4 +25,12 @@ func Initdb() {
 	defer db.Close()
 	//テーブル作る
 	db.AutoMigrate(Blog{})
+
+	//ここからテスト書き込み
+	testwrite := Blog{}
+	testwrite.Title = "test1"
+	testwrite.Body = "a"
+	testwrite.Come = "aaa"
+	testwrite.Sakusya = "sasasa"
+	db.Create(testwrite)
 }
