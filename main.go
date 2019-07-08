@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 
 	"github.com/jinzhu/gorm"
@@ -14,7 +15,7 @@ type Blog struct {
 	Sakusya string `json:"Sakusya"`
 }
 
-// type Blogs []Blog
+type Blogs []Blog
 
 func main() {
 	//dbにアクセス
@@ -27,10 +28,16 @@ func main() {
 	db.AutoMigrate(Blog{})
 
 	//ここからテスト書き込み
-	testwrite := Blog{}
-	testwrite.Title = "test1"
-	testwrite.Body = "a"
-	testwrite.Come = "aaa"
-	testwrite.Sakusya = "sasasa"
-	db.Create(testwrite)
+	// testwrite := Blog{}
+	// testwrite.Title = "test1"
+	// testwrite.Body = "a"
+	// testwrite.Come = "aaa"
+	// testwrite.Sakusya = "sasasa"
+	// db.Create(testwrite)
+
+	//読み込んだ
+	kizis := Blogs{}
+	// &kizisはkizisに代入されるという意味 .find()は引数の変数に値を入れる
+	db.Debug().Find(&kizis) //SELECT * FROM "blogs"
+	fmt.Println(kizis)
 }
