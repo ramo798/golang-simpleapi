@@ -17,6 +17,11 @@ type Blog struct {
 type Blogs []Blog
 
 func main() {
+	Initdb()
+}
+
+//Initdb is テーブル作成
+func Initdb() {
 	//dbにアクセス
 	db, err := gorm.Open("postgres", "user=root password=root dbname=DB79 sslmode=disable")
 	if err != nil {
