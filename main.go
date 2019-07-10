@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"log"
 
 	"github.com/gin-gonic/gin"
@@ -11,15 +10,7 @@ import (
 )
 
 //
-type Blog struct {
-	Title   string `json:"Title"`
-	Body    string `json:"Body"`
-	Come    string `json:"Come"`
-	Sakusya string `json:"Sakusya"`
-}
-
-//
-type Blogs []Blog
+// type Blogs []Blog
 
 func main() {
 	//dbにアクセス
@@ -39,11 +30,11 @@ func main() {
 		come := c.DefaultQuery("come", "non")
 		sakusya := c.DefaultQuery("sakusya", "guest")
 
-		writecon := Blog{}
-		writecon.Title = title
-		writecon.Body = body
-		writecon.Come = come
-		writecon.Sakusya = sakusya
+		// writecon := Blog{}
+		// writecon.Title = title
+		// writecon.Body = body
+		// writecon.Come = come
+		// writecon.Sakusya = sakusya
 
 		// db.Create(writecon)
 
@@ -63,15 +54,15 @@ func testwrite() {
 	}
 	defer db.Close()
 	//テーブル作る
-	db.AutoMigrate(Blog{})
+	// db.AutoMigrate(Blog{})
 
 	//ここからテスト書き込み
-	testwrite := Blog{}
-	testwrite.Title = "test2"
-	testwrite.Body = "b"
-	testwrite.Come = "bbb"
-	testwrite.Sakusya = "bbbb"
-	db.Create(testwrite)
+	// testwrite := Blog{}
+	// testwrite.Title = "test2"
+	// testwrite.Body = "b"
+	// testwrite.Come = "bbb"
+	// testwrite.Sakusya = "bbbb"
+	// db.Create(testwrite)
 }
 
 func testread() {
@@ -81,8 +72,8 @@ func testread() {
 	// db.AutoMigrate(Blog{})
 
 	//読み込んだ
-	kizis := Blogs{}
+	// kizis := Blogs{}
 	// &kizisはkizisに代入されるという意味 .find()は引数の変数に値を入れる
 	// db.Debug().Find(&kizis) //SELECT * FROM "blogs"
-	fmt.Println(kizis)
+	// fmt.Println(kizis)
 }
