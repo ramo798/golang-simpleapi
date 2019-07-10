@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 
+	"github.com/gin-gonic/gin"
 	"github.com/jinzhu/gorm"
 	_ "github.com/lib/pq"
 )
@@ -18,8 +19,13 @@ type Blog struct {
 type Blogs []Blog
 
 func main() {
-	testwrite()
-	testread()
+	r := gin.Default()
+	r.GET("/", func(c *gin.Context) {
+		c.String(200, "Hello, World")
+	})
+	r.Run(":3000")
+	// testwrite()
+	// testread()
 }
 
 func testwrite() {
