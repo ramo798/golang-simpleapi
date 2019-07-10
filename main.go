@@ -7,8 +7,10 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/jinzhu/gorm"
 	_ "github.com/lib/pq"
+	"github.com/ramo798/golang-simpleapi/db"
 )
 
+//
 type Blog struct {
 	Title   string `json:"Title"`
 	Body    string `json:"Body"`
@@ -16,15 +18,12 @@ type Blog struct {
 	Sakusya string `json:"Sakusya"`
 }
 
+//
 type Blogs []Blog
 
 func main() {
 	//dbにアクセス
-	db, err := gorm.Open("postgres", "user=root password=root dbname=DB79 sslmode=disable")
-	if err != nil {
-		log.Print(err)
-	}
-	defer db.Close()
+	db.Init()
 
 	r := gin.Default()
 	r.GET("/", func(c *gin.Context) {
@@ -46,7 +45,7 @@ func main() {
 		writecon.Come = come
 		writecon.Sakusya = sakusya
 
-		db.Create(writecon)
+		// db.Create(writecon)
 
 		c.String(200, "%s %s %s %s", title, body, come, sakusya)
 	})
@@ -77,17 +76,13 @@ func testwrite() {
 
 func testread() {
 	//dbにアクセス
-	db, err := gorm.Open("postgres", "user=root password=root dbname=DB79 sslmode=disable")
-	if err != nil {
-		log.Print(err)
-	}
-	defer db.Close()
+	// db.Init()
 	//テーブル作る
-	db.AutoMigrate(Blog{})
+	// db.AutoMigrate(Blog{})
 
 	//読み込んだ
 	kizis := Blogs{}
 	// &kizisはkizisに代入されるという意味 .find()は引数の変数に値を入れる
-	db.Debug().Find(&kizis) //SELECT * FROM "blogs"
+	// db.Debug().Find(&kizis) //SELECT * FROM "blogs"
 	fmt.Println(kizis)
 }
