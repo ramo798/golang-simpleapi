@@ -19,11 +19,38 @@ type Blog struct {
 type Blogs []Blog
 
 func main() {
+	//dbにアクセス
+	db, err := gorm.Open("postgres", "user=root password=root dbname=DB79 sslmode=disable")
+	if err != nil {
+		log.Print(err)
+	}
+	defer db.Close()
+
 	r := gin.Default()
 	r.GET("/", func(c *gin.Context) {
 		c.String(200, "Hello, World")
 		testread()
 	})
+
+	//urlから値を取り出す
+	r.GET("/write", func(c *gin.Context) {
+
+		title := c.DefaultQuery("title", "non")
+		body := c.DefaultQuery("body", "non")
+		come := c.DefaultQuery("come", "non")
+		sakusya := c.DefaultQuery("sakusya", "guest")
+
+		writecon := Blog{}
+		writecon.Title = title
+		writecon.Body = body
+		writecon.Come = come
+		writecon.Sakusya = sakusya
+
+		db.Create(writecon)
+
+		c.String(200, "%s %s %s %s", title, body, come, sakusya)
+	})
+
 	r.Run(":3000")
 	// testwrite()
 	// testread()
